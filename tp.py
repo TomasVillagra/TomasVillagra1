@@ -36,61 +36,8 @@
 #e) Expulsar alumnos
 
 ##Parte de las funciones:
-def informacion_alumno(alumno):
-    print("Datos del Alumno:")
-    print(f"Nombre: {alumno['Nombre']}")
-    print(f"Apellido: {alumno['Apellido']}")
-    print(f"DNI: {alumno['DNI']}")
-    print(f"Fecha de Nacimiento: {alumno['Fecha de nacimiento']}")
-    print(f"Tutor: {alumno['Tutor']}")
-    print(f"Notas: {alumno['Notas']}")
-    print(f"Faltas: {alumno['Faltas']}")
-    print(f"Amonestaciones: {alumno['Amonestaciones']}")
-
-def modificarinfo_alumno(alumno, nuevo_nombre, nuevo_apellido, nueva_fecha_nacimiento, nuevo_tutor,nuevas_notas,nuevas_faltas,nuevas_amonestaciones):
-    alumno['Nombre'] = nuevo_nombre
-    alumno['Apellido'] = nuevo_apellido
-    alumno['Fecha de nacimiento'] = nueva_fecha_nacimiento
-    alumno['Tutor'] = nuevo_tutor
-    alumno['Notas'] = nuevas_notas
-    alumno['Faltas'] = nuevas_faltas
-    alumno['Amonestaciones']=nuevas_amonestaciones
-
-def agregar_alumno(datos, nuevo_alumno):
-    datos['Alumnos'].append(nuevo_alumno)
-    
-def ingresar_datos_alumno():
-    nombre = input("Ingrese el nombre del alumno: ")
-    apellido = input("Ingrese el apellido del alumno: ")
-    dni = input("Ingrese el DNI del alumno: ")
-    fecha_nacimiento = input("Ingrese la fecha de nacimiento del alumno: ")
-    tutor = input("Ingrese el nombre y apellido del tutor: ")
-
-    nuevo_alumno = {
-        "Nombre": nombre,
-        "Apellido": apellido,
-        "DNI": dni,
-        "Fecha de nacimiento": fecha_nacimiento,
-        "Tutor": tutor,
-        "Notas": [],
-        "Faltas": 0,
-        "Amonestaciones": 0
-    }
-    return nuevo_alumno
-def modificar_dato(alumno, dato, nuevo_valor):
-    if dato in alumno:
-        alumno[dato] = nuevo_valor
-        print(f"Dato '{dato}' del alumno modificado exitosamente.")
-    else:
-        print(f"No se encontró el dato '{dato}' en la información del alumno.")
-def expulsar_alumno(datos, nombre_alumno):
-    for alumno in datos['Alumnos']:
-        if alumno['Nombre'] == nombre_alumno:
-            datos['Alumnos'].remove(alumno)
-            print(f"Alumno con nombre {nombre_alumno} expulsado.")
-            return
-    print(f"No se encontró ningún alumno con ese nombre {nombre_alumno}.")
-
+import funciones
+import json
 ##Datos de alumnos
 alumno1={"Nombre":"Tomas",
          "Apellido":"Villagra",
@@ -128,6 +75,14 @@ alumno4={"Nombre":"Roberto",
 Datos={
     "Alumnos":[alumno1,alumno2,alumno3,alumno4]
 }
+archivo_datos = "datos.json"
+try:
+    with open(archivo_datos, 'r') as file:
+        Datos = json.load(file)
+except FileNotFoundError:
+    Datos = {
+        "Alumnos": [alumno1, alumno2, alumno3, alumno4]
+    }
 ##Menu de opciones:
 while True:
     print("Menú:")
@@ -140,6 +95,9 @@ while True:
 
     opcion = input("Ingrese la opción deseada (a, b, c, d, e, f): ").lower()
 
+    with open(archivo_datos, 'w') as file:
+        json.dump(Datos, file, indent=2)
+    
     if opcion == "f":
         print("¡Programa cerrado!")
         break
@@ -148,8 +106,8 @@ while True:
         
         if opcion == "d":
             
-            nuevo_alumno = ingresar_datos_alumno()
-            agregar_alumno(Datos, nuevo_alumno)
+            nuevo_alumno = funciones.ingresar_datos_alumno()
+            funciones.agregar_alumno(Datos, nuevo_alumno)
             print("Nuevo alumno agregado exitosamente.")
         
         
@@ -166,7 +124,7 @@ while True:
                 break
 
         if opcion == "a" and alumno_encontrado:
-            informacion_alumno(alumno_encontrado)
+            funciones.informacion_alumno(alumno_encontrado)
         elif opcion == "b" and alumno_encontrado:
             
             nuevo_nombre = input("Ingrese el nuevo nombre del alumno: ")
@@ -174,7 +132,7 @@ while True:
             nueva_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento del alumno: ")
             nuevo_tutor = input("Ingrese el nuevo nombre y apellido del tutor: ")
 
-            modificarinfo_alumno(alumno_encontrado, nuevo_nombre, nuevo_apellido, nueva_fecha_nacimiento, nuevo_tutor)
+            funciones.modificarinfo_alumno(alumno_encontrado, nuevo_nombre, nuevo_apellido, nueva_fecha_nacimiento, nuevo_tutor)
             print("Datos del alumno modificados correctamente.")
         elif opcion == "c" and alumno_encontrado:
             
@@ -183,9 +141,9 @@ while True:
             dato_a_modificar = input("Ingrese el dato que desea modificar: ")
             nuevo_valor = input(f"Ingrese el nuevo valor para '{dato_a_modificar}': ")
 
-            modificar_dato(alumno_encontrado, dato_a_modificar, nuevo_valor)
+            funciones.modificar_dato(alumno_encontrado, dato_a_modificar, nuevo_valor)
         elif opcion == "e" and alumno_encontrado:
-            expulsar_alumno(Datos, nombre_alumno)
+            funciones.expulsar_alumno(Datos, nombre_alumno)
         elif not alumno_encontrado:
             print(f"No se encontró ningún alumnio con el nombre: {nombre_alumno}.")
     else:

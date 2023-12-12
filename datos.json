@@ -1,0 +1,68 @@
+{
+  "Alumnos": [
+    {
+      "Nombre": "Tomas",
+      "Apellido": "Villagra",
+      "DNI": "45768262",
+      "Fecha de nacimiento": "14/07/2004",
+      "Tutor": "Alejandro Villagra",
+      "Notas": [
+        8,
+        7,
+        5,
+        1,
+        6
+      ],
+      "Faltas": 10,
+      "Amonestaciones": 0
+    },
+    {
+      "Nombre": "Nahuel",
+      "Apellido": "Portal",
+      "DNI": "45768123",
+      "Fecha de nacimiento": "13/09/2004",
+      "Tutor": "Manuel Portal",
+      "Notas": [
+        9,
+        5,
+        0,
+        8,
+        6
+      ],
+      "Faltas": 6,
+      "Amonestaciones": 1
+    },
+    {
+      "Nombre": "Hernan",
+      "Apellido": "Pogonsa",
+      "DNI": "45675361",
+      "Fecha de nacimiento": "12/09/2004",
+      "Tutor": "Leonel Pogonsa",
+      "Notas": [
+        4,
+        7,
+        7,
+        7,
+        5
+      ],
+      "Faltas": 4,
+      "Amonestaciones": 2
+    },
+    {
+      "Nombre": "Roberto",
+      "Apellido": "Zanet",
+      "DNI": "45769265",
+      "Fecha de nacimiento": "21/07/2004",
+      "Tutor": "Nicolas Zanet",
+      "Notas": [
+        1,
+        4,
+        8,
+        9,
+        10
+      ],
+      "Faltas": 15,
+      "Amonestaciones": 3
+    }
+  ]
+}
